@@ -8,6 +8,3 @@
 生成txt文件使用embedding projector可视化
 4.2、vec2csv.py
 生成csv文件利用weka分析
-
-
-未完成的事情：向量存储和提取没有衔接好

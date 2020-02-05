@@ -1,4 +1,4 @@
-import random
+
 def quchong(dirpath):
     a = 0
     readDir = dirpath + "\\node_type.txt"  # old
@@ -20,9 +20,9 @@ def quchong(dirpath):
 def train_testdata():
     delnum = 30#删除少于delnum 个签到的用户
     a = 0.8 #80%作为训练集
-    data = '.\\data\\foursquare\\checkin.txt'
-    train = '.\\data\\foursquare\\train.txt'
-    test = '.\\data\\foursquare\\test.txt'
+    data = '.\\data\\data\\checkin.txt'
+    train = '.\\data\\data\\train.txt'
+    test = '.\\data\\data\\test.txt'
 
     #打开原文件
     f = open(data, 'r', encoding='UTF-8', errors='ignore')
@@ -72,7 +72,7 @@ def xieleibie(dirpath):
         while line:
             list = line.strip().split(" ")
             for i in range(0,len(list)):
-                if list[i].startswith('u'):
+                if list[i].startswith('U'):
                     fb.write(list[i] + " user\n")
                     #print(list[i]+" user")
                 elif list[i].startswith('p'):
@@ -90,12 +90,36 @@ def xieleibie(dirpath):
             line = f.readline()
         f.close()
 
+#分离序列中的user和poi
+def separatewalks(dirpath):
+    f = open(dirpath + '\\random_walks.txt', 'r', encoding='UTF-8', errors='ignore')
+    line = f.readline()  # 调用文件的 readline()方法
+    fp = open(dirpath + '\\poi_walks.txt', 'w')
+    fu = open(dirpath + '\\user_walks.txt', 'w')
+    while line:
+        list = line.strip().split(" ")
+        for i in range(0, len(list)):
+            if list[i].startswith('u'):
+                fu.write(list[i] + " ")
+            if list[i].startswith('p'):
+                fp.write(list[i] + " ")
+        fu.write("\n")
+        fp.write("\n")
+        line = f.readline()
+    f.close()
+
+#训练集测试集划分
 # train_testdata()
 
 # ucu = ".\\data\\ucu\\vector"
 # xieleibie(ucu)
 # quchong(ucu)
 
-utlc= ".\\data\\utlc\\vector"
-xieleibie(utlc)
-quchong(utlc)
+# utlp= ".\\data\\utlp\\vector"
+# # separatewalks(utlp)
+# xieleibie(utlp)
+# quchong(utlp)
+
+utlp2= ".\\data\\utlp2\\vector"
+xieleibie(utlp2)
+quchong(utlp2)
